@@ -436,3 +436,12 @@ html.form-is-open body { overflow: hidden; }
   }
   .form-contact-actions .form-submit { margin-top: 0; }
 }
+
+/* Submission feedback is visible only while sending or after a failed attempt. */
+.form-submit:disabled { cursor: wait; opacity: .75; }
+.form-submit-error { width: min(310px, 100%); margin: 12px auto 0; }
+@media (max-width: 700px) {
+  .form-overlay[data-screen="contact"]:has(.form-submit-error:not([hidden])) {
+    scroll-padding-bottom: calc(180px + env(safe-area-inset-bottom, 0px));
+  }
+}

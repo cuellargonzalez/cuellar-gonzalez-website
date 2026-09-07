@@ -16,6 +16,11 @@
   const formQuestionError = document.querySelector('#form-question-error');
   const formConsent = document.querySelector('#form-consent');
   const formStatus = document.querySelector('#form-validation-status');
+  const formSubmit = formContact.querySelector('.form-submit');
+  const formSubmitError = document.querySelector('#form-submit-error');
+  const formSubmitLabel = formSubmit.textContent;
+  const formEndpoint = 'https://script.google.com/macros/s/AKfycbzcBj7MJBlP0lDQsMB3EtWItjR8A5W3Dx6SLGpSqtso-KYagzNPwWBZK1mI6omNrG2t/exec';
+  let formRequest = null;
   const formScreens = {
     questions: formOverlay.querySelector('.form-questions'),
     contact: formOverlay.querySelector('.form-contact'),
@@ -66,7 +71,23 @@
     error.hidden = true;
   }
 
+  function setFormSubmitting(submitting) {
+    formSubmit.disabled = submitting;
+    formSubmit.textContent = submitting ? 'Enviando...' : formSubmitLabel;
+    formSubmit.setAttribute('aria-busy', String(submitting));
+    // Keep the submitted snapshot stable until the server responds.
+    formContact.querySelectorAll('input:not([type="checkbox"])').forEach(input => { input.readOnly = submitting; });
+    formConsent.disabled = submitting;
+    formBack.disabled = submitting;
+  }
+
   function resetForm() {
+    // Ignore late responses after Escape/close or a new form session.
+    if (formRequest) formRequest.controller.abort();
+    formRequest = null;
+    setFormSubmitting(false);
+    formSubmitError.hidden = true;
+    formSubmitError.textContent = '';
     formState = createFormState();
     formStep = 0;
     formContact.reset();
@@ -231,8 +252,11 @@
     formStatus.textContent = '';
   });
 
-  formContact.addEventListener('submit', event => {
+  formContact.addEventListener('submit', async event => {
     event.preventDefault();
+    if (formRequest || formOverlay.dataset.screen !== 'contact') return;
+    formSubmitError.hidden = true;
+    formSubmitError.textContent = '';
     // Re-read inputs here to include values supplied by browser autofill.
     ['nombre', 'whatsapp', 'email'].forEach(key => {
       const input = formContact.elements.namedItem(key);
@@ -250,7 +274,7 @@
       }
       return;
     }
-    // Guard against bypassing the question flow; never log a partial submission.
+    // Guard against bypassing the question flow; never send a partial submission.
     const missingStep = formSteps.findIndex(step => !formState[step.key]);
     if (missingStep !== -1) {
       formStep = missingStep;
@@ -261,10 +285,44 @@
       utm_source, utm_campaign, utm_content } = formState;
     const submission = {
       nombre, whatsapp, email, dondeVivir, presupuesto, financiacion, cuandoComprar,
+      consentimiento: formConsent.checked,
       utm_source, utm_campaign, utm_content
     };
-    console.log(submission); // Local prototype only: no storage or network submission.
-    showFormScreen('success', document.querySelector('#form-success-title'));
+    const request = { controller: new AbortController() };
+    formRequest = request;
+    setFormSubmitting(true);
+    const timeout = window.setTimeout(() => request.controller.abort(), 30000);
+    try {
+      // A string body uses text/plain;charset=UTF-8 without custom headers,
+      // avoiding the application/json preflight. Apps Script parses the JSON body.
+      // Normal CORS mode is intentional: an opaque no-cors response cannot confirm success.
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        body: JSON.stringify(submission),
+        credentials: 'omit',
+        redirect: 'follow',
+        signal: request.controller.signal
+      });
+      if (!response.ok) throw new Error('Submission HTTP failure');
+      const result = await response.json();
+      if (!result || result.success !== true) throw new Error('Submission was not confirmed');
+      if (formRequest !== request || !formOverlay.open) return;
+      setFormSubmitting(false);
+      showFormScreen('success', document.querySelector('#form-success-title'));
+    } catch (error) {
+      if (formRequest !== request || !formOverlay.open) return;
+      setFormSubmitting(false);
+      formSubmitError.textContent = 'No pudimos enviar tu información. Intenta nuevamente.';
+      formSubmitError.hidden = false;
+      formSubmitError.focus({ preventScroll: true });
+      formSubmitError.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+    } finally {
+      window.clearTimeout(timeout);
+      if (formRequest === request) {
+        formRequest = null;
+        setFormSubmitting(false);
+      }
+    }
   });
 
   formOverlay.querySelector('.form-return').addEventListener('click', () => closeForm(true));
