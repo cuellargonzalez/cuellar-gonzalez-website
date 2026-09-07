@@ -11,7 +11,7 @@
   <main id="inicio">
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-layout">
-        <div class="hero-copy"><h1 id="hero-title">Encuentra tu Hogar Perfecto</h1><p>Cuéntanos qué necesitas, tu presupuesto y preferencias. Nosotros nos encargamos de encontrar la propiedad perfecta para ti.</p><button class="button" type="button">Empezar mi búsqueda</button></div>
+        <div class="hero-copy"><h1 id="hero-title">Encuentra tu Hogar Perfecto</h1><p>Cuéntanos qué necesitas, tu presupuesto y preferencias. Nosotros nos encargamos de encontrar la propiedad perfecta para ti.</p><button class="button" type="button" data-form-open>Empezar mi búsqueda</button></div>
         <div class="hero-image"><img src="Assets/Images/Hero image.png" alt="Edificio de apartamentos con balcones y terrazas" width="819" height="854" fetchpriority="high"></div>
       </div>
     </section>
@@ -21,7 +21,7 @@
         <article class="card service-card"><h3><span class="icon-circle"><img class="icon " src="Assets/Icons/Search.svg" alt="" width="24" height="24"></span>ENCUENTRA</h3><p>Propiedades cuidadosamente seleccionadas que se ajustan a tus criterios y estilo de vida.</p></article>
         <article class="card service-card"><h3><span class="icon-circle"><img class="icon " src="Assets/Icons/Finance.svg" alt="" width="24" height="24"></span>FINANCIA</h3><p>Aceptamos pagos con el FNA y ofrecemos asesoría experta en crédito hipotecario y leasing habitacional.</p></article>
         <article class="card service-card"><h3><span class="icon-circle"><img class="icon " src="Assets/Icons/Support.svg" alt="" width="24" height="24"></span>ACOMPAÑA</h3><p>Atención personalizada desde la búsqueda inicial hasta la entrega de llaves.</p></article>
-      </div><div class="section-action"><button class="button" type="button">Empezar mi búsqueda</button></div>
+      </div><div class="section-action"><button class="button" type="button" data-form-open>Empezar mi búsqueda</button></div>
     </div></section>
     <section class="section properties" aria-labelledby="properties-title">
       <div class="container"><h2 id="properties-title">Algunas propiedades que podrías encontrar</h2></div>
@@ -41,7 +41,7 @@
         <li><span class="step-number" aria-hidden="true">03</span><div class="step-copy"><h3>Visitas guiadas</h3><p>Te acompañamos a conocer los inmuebles seleccionados.</p></div></li>
         <li><span class="step-number" aria-hidden="true">04</span><div class="step-copy"><h3>Negociación y cierre</h3><p>Acompañamiento legal y financiero para cerrar con el mejor trato.</p></div></li>
         <li><span class="step-number" aria-hidden="true">05</span><div class="step-copy"><h3>Entrega de llaves</h3><p>Celebramos contigo el inicio de esta nueva etapa.</p></div></li>
-      </ol><div class="section-action"><button class="button" type="button">Empezar mi búsqueda</button></div>
+      </ol><div class="section-action"><button class="button" type="button" data-form-open>Empezar mi búsqueda</button></div>
     </div></section>
     <section class="section profile" aria-labelledby="profile-title"><div class="container profile-layout">
       <img class="portrait" src="Assets/Team/Foto_Pablo.jpeg" alt="Pablo Cuéllar con una vista de Bogotá al fondo" width="1600" height="1200">
@@ -56,7 +56,7 @@
       </ul><div class="financing"><p><img class="icon " src="Assets/Icons/savings.svg" alt="" width="24" height="24">Financiación Habicredit:</p><p class="financing-detail">Puedes hacer un solo estudio y recibir propuestas de financiación de hasta 7 bancos para la vivienda que quieras comprar.</p></div></div>
     </div></section>
     <section class="final-cta" aria-labelledby="cta-title">
-      <div class="container"><h2 id="cta-title">¿Buscamos tu futuro hogar?</h2><button class="button" type="button">Empezar mi búsqueda</button></div>
+      <div class="container"><h2 id="cta-title">¿Buscamos tu futuro hogar?</h2><button class="button" type="button" data-form-open>Empezar mi búsqueda</button></div>
     </section>
   </main>
   <footer class="site-footer"><div class="container">
@@ -64,5 +64,53 @@
     <div class="footer-contact"><button type="button"><img class="icon " src="Assets/Icons/Whatsapp.svg" alt="" width="24" height="24">Contacto Whatsapp</button><a href="mailto:Pablo.CuellarGonzalez@gmail.com"><img class="icon " src="Assets/Icons/Email.svg" alt="" width="24" height="24">Pablo.CuellarGonzalez@gmail.com</a></div>
     <div class="footer-bottom"><p>© 2026 Cuéllar González Inmobiliaria. Todos los derechos reservados.</p><a href="Assets/Documents/Politica_Tratamiento_Datos_Persona_Natural_Agente_Inmobiliario.docx">Política de Tratamiento de Datos Personales</a></div>
   </div></footer>
+  <dialog class="form-overlay" id="lead-form" aria-label="Encuentra tu casa perfecta">
+    <header class="form-header">
+      <p class="form-header-title"><span class="form-header-search">ENCUENTRA TU CASA PERFECTA</span><span class="form-header-brand">CUÉLLAR GONZÁLEZ · INMOBILIARIA</span></p>
+      <button class="form-back" type="button" aria-label="Volver al inicio">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+    </header>
+
+    <div class="form-content">
+      <section class="form-screen form-questions" aria-labelledby="form-question-title">
+        <div class="form-progress-row"><p id="form-step-label">PASO 1 DE 4</p><div class="form-progress" role="progressbar" aria-label="Progreso de las preguntas" aria-valuemin="0" aria-valuemax="4" aria-valuenow="1"><span></span></div></div>
+        <form class="form-step" id="form-questions" data-step="1" novalidate>
+          <div class="form-step-scroll">
+          <div class="form-question-intro"><h2 id="form-question-title" tabindex="-1">¿Dónde quieres vivir?</h2><p id="form-question-description" hidden></p></div>
+          <fieldset class="form-options" aria-labelledby="form-question-title"></fieldset>
+          <p class="form-error" id="form-question-error" role="alert" hidden></p>
+          </div>
+          <div class="form-actions"><button class="button form-continue" type="submit" aria-disabled="true">Continuar</button></div>
+        </form>
+      </section>
+
+      <section class="form-screen form-contact" aria-labelledby="form-contact-title" hidden>
+        <h2 id="form-contact-title" tabindex="-1">¡Ya sabemos que estás buscando!</h2>
+        <p class="form-supporting">Déjanos tus datos, enviaremos las propuestas que mejor hagan match contigo.</p>
+        <form id="form-contact" novalidate>
+          <div class="form-fields">
+            <div class="form-field"><label for="form-nombre">TU NOMBRE</label><div class="form-input-wrap"><input id="form-nombre" name="nombre" type="text" placeholder="Nombre" autocomplete="name" required aria-describedby="form-nombre-error"></div><p class="form-error" id="form-nombre-error" hidden></p></div>
+            <div class="form-field"><label for="form-whatsapp">WHATSAPP</label><div class="form-input-wrap form-input-icon"><img src="Assets/Icons/Whatsapp.svg" alt="" width="16" height="16"><input id="form-whatsapp" name="whatsapp" type="tel" placeholder="+57 321 000 0000" autocomplete="tel" required aria-describedby="form-whatsapp-error"></div><p class="form-error" id="form-whatsapp-error" hidden></p></div>
+            <div class="form-field"><label for="form-email">EMAIL</label><div class="form-input-wrap form-input-icon"><img src="Assets/Icons/Email.svg" alt="" width="16" height="16"><input id="form-email" name="email" type="email" placeholder="tu@email.com" autocomplete="email" required aria-describedby="form-email-error"></div><p class="form-error" id="form-email-error" hidden></p></div>
+          </div>
+          <div class="form-privacy"><p>Usaremos tus datos únicamente para contactarte sobre las opciones de vivienda que puedan interesarte.</p>
+            <div class="form-consent"><input id="form-consent" name="consent" type="checkbox" required aria-describedby="form-consent-error"><label for="form-consent">Autorizo de manera previa, expresa e informada el tratamiento de mis datos personales, de conformidad con la <a href="Assets/Documents/Politica_Tratamiento_Datos_Persona_Natural_Agente_Inmobiliario.docx" target="_blank" rel="noopener">Política de Tratamiento de Datos Personales</a>, para recibir asesoría comercial sobre propiedades inmobiliarias, programar visitas y recibir ofertas.</label></div>
+            <p class="form-error" id="form-consent-error" hidden></p>
+          </div>
+          <p class="form-sr-only" id="form-validation-status" role="alert"></p>
+          <div class="form-contact-actions"><button class="button form-submit" type="submit">Quiero ver mis opciones</button></div>
+        </form>
+      </section>
+
+      <section class="form-screen form-success" aria-labelledby="form-success-title" hidden>
+        <span class="form-success-icon"><img src="Assets/Icons/Email.svg" alt="" width="32" height="32"></span>
+        <h2 id="form-success-title" tabindex="-1">¡Listo! Recibimos tu información.</h2>
+        <p class="form-supporting">Pablo revisará tu perfil y se pondrá en contacto contigo para conversar sobre las opciones que pueden ajustarse a lo que estás buscando.</p>
+        <button class="button form-return" type="button">Volver al inicio</button>
+      </section>
+    </div>
+  </dialog>
+  <script src="script.js" defer></script>
 </body>
 </html>

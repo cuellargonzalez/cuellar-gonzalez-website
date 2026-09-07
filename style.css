@@ -61,7 +61,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px s
 .hero-copy { transform: translateY(32px); }
 .hero-copy p { max-width: 580px; margin: 32px 0; color: var(--color-muted); font-weight: 600; line-height: 1.45; }
 .hero-image { width: 550px; max-width: 100%; height: 100%; justify-self: end; overflow: hidden; position: relative; }
-.hero-image img { position: absolute; width: 100%; max-width: none; height: auto; bottom: -65px; left: 0; }
+/* The original PNG has 116px of transparent bottom padding out of 854px. */
+.hero-image img { position: absolute; width: 100%; max-width: none; height: auto; bottom: 0; left: 0; transform: translateY(13.58314%); }
 .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 48px; }
 .service-card { border: 1px solid var(--color-line); padding: 24px; }
 .service-card h3 { display: flex; align-items: center; gap: 16px; font-size: 18px; }
@@ -123,7 +124,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px s
   :root { --font-h1: 34px; --gutter: 28px; }
   .hero-layout { gap: 24px; }
   .hero-image { height: 100%; align-self: end; }
-  .hero-image img { bottom: -45px; }
   .journey-list { grid-template-columns: repeat(5, 1fr); margin-inline: 0; }
   .profile-layout { gap: 32px; }
   .portrait { height: 440px; }
@@ -139,7 +139,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px s
   .hero-copy h1 { max-width: 340px; margin-inline: auto; }
   .hero-copy p { margin: 32px auto; font-size: 18px; font-weight: 450; line-height: 1.45; }
   .hero-image { width: calc(100% + 40px); max-width: none; height: auto; aspect-ratio: 1020 / 948; margin-left: -20px; justify-self: start; }
-  .hero-image img { width: 110%; left: -5%; bottom: -48px; }
+  .hero-image img { width: 110%; left: -5%; }
   .button { width: 310px; min-height: 56px; font-size: 16px; }
   .section h2 { text-align: left; }
   .services { padding-block: 64px; }
@@ -245,4 +245,194 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px s
   .footer-bottom a {
     transition: none;
   }
+}
+
+/* Full-viewport lead form. All presentation is scoped to the form experience. */
+html.form-is-open,
+html.form-is-open body { overflow: hidden; }
+.form-overlay {
+  position: fixed; inset: 0; width: 100%; max-width: none;
+  height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0;
+  background: var(--color-white); color: var(--color-body);
+  font-family: var(--font-family); font-size: 16px; line-height: 1.5;
+  overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; z-index: 1000;
+}
+.form-overlay::backdrop { background: var(--color-white); }
+.form-overlay [hidden] { display: none !important; }
+.form-header { position: relative; display: flex; align-items: center; justify-content: center; height: 89px; padding: 0 80px; background: #fafafa; border-bottom: 1px solid var(--color-blue-line); }
+.form-header-title { color: var(--color-text); font-size: 16px; font-weight: 600; text-align: center; }
+.form-header-brand { display: none; }
+.form-back { position: absolute; right: max(20px, calc((100% - 1280px) / 2)); top: 22px; display: grid; place-items: center; width: 44px; height: 44px; padding: 10px; border: 0; background: transparent; color: var(--color-text); border-radius: 50%; transition: box-shadow 180ms ease, opacity 180ms ease; }
+.form-overlay[data-screen="contact"] .form-header-search,
+.form-overlay[data-screen="success"] .form-header-search { display: none; }
+.form-overlay[data-screen="contact"] .form-header-brand,
+.form-overlay[data-screen="success"] .form-header-brand { display: inline; }
+.form-overlay[data-screen="contact"] .form-back,
+.form-overlay[data-screen="success"] .form-back { display: none; }
+.form-content { width: min(712px, calc(100% - 40px)); margin: 48px auto 64px; }
+.form-overlay h2 { font-size: 28px; line-height: 36px; font-weight: 600; letter-spacing: -.5px; text-align: center; }
+.form-overlay h2:focus { outline: none; }
+.form-progress-row { display: flex; align-items: center; gap: 16px; }
+.form-progress-row > p { flex-shrink: 0; font-size: 12px; letter-spacing: 1px; line-height: 16px; }
+.form-progress { height: 4px; flex: 1; background: #e5e3e3; border-radius: 4px; overflow: hidden; }
+.form-progress > span { display: block; width: 25%; height: 100%; background: var(--color-text); border-radius: inherit; }
+.form-step { display: flex; flex-direction: column; align-items: center; min-height: 562px; margin-top: 32px; }
+.form-question-intro { width: 100%; }
+.form-question-intro > p { margin-top: 8px; text-align: center; }
+.form-options { display: grid; gap: 12px; width: min(520px, 100%); padding: 0; border: 0; margin: 32px 0 0; min-width: 0; }
+.form-step[data-step="1"] .form-options { margin-top: 68px; }
+.form-option { display: block; position: relative; cursor: pointer; }
+.form-option > input { position: absolute; opacity: 0; width: 1px; height: 1px; top: 50%; left: 16px; margin: 0; }
+.form-option-card { display: flex; align-items: center; gap: 16px; min-height: 66px; padding: 16px; border: 1px solid var(--color-line); border-radius: 16px; color: var(--color-text); background: var(--color-white); font-size: 18px; font-weight: 600; line-height: 24px; transition: box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease; }
+.form-option-icon { display: grid; place-items: center; flex: 0 0 32px; height: 32px; background: var(--color-yellow); border-radius: 50%; }
+.form-option-icon img { width: 16px; height: 16px; }
+.form-option-check { display: none; }
+.form-option input:checked + .form-option-card { background-color: color-mix(in srgb, var(--color-line) 50%, var(--color-white)); }
+.form-option input:focus-visible + .form-option-card { outline: 3px solid var(--color-step); outline-offset: 4px; }
+.form-overlay .button { flex-shrink: 0; }
+.form-continue { margin-top: auto; align-self: center; }
+.form-continue[aria-disabled="true"] { cursor: default; }
+.form-step > .form-error { width: min(520px, 100%); }
+.form-supporting { margin-top: 8px; text-align: center; }
+.form-fields { width: min(520px, 100%); margin: 32px auto 0; display: grid; gap: 20px; }
+.form-field > label { display: block; font-size: 12px; font-weight: 600; color: var(--color-button); margin-bottom: 6px; }
+.form-input-wrap { position: relative; }
+.form-field input { width: 100%; height: 47px; border: 1px solid var(--color-line); border-radius: 8px; background: #fafafa; padding: 12px 16px; font: inherit; color: var(--color-text); }
+.form-field input::placeholder { color: #c4c6cf; opacity: 1; }
+.form-input-icon input { padding-left: 48px; }
+.form-input-icon img { position: absolute; width: 16px; height: 16px; left: 16px; top: 16px; pointer-events: none; filter: invert(89%) sepia(17%) saturate(614%) hue-rotate(182deg) brightness(100%); }
+.form-consent input:focus-visible { outline: 3px solid var(--color-step); outline-offset: 3px; }
+.form-submit { display: flex; margin: 32px auto 0; }
+.form-privacy { margin: 40px 4px 0; font-size: 12px; line-height: 16px; }
+.form-consent { display: flex; align-items: flex-start; gap: 8px; margin-top: 8px; }
+.form-consent input { appearance: none; flex: 0 0 16px; width: 16px; height: 16px; margin: 0; border: 1px solid var(--color-line); border-radius: 4px; background: var(--color-white); cursor: pointer; }
+.form-consent input:checked { background: var(--color-line); }
+.form-consent input:checked::after { content: ""; display: block; width: 5px; height: 9px; margin: 1px 4px; border: solid var(--color-text); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.form-consent label { cursor: pointer; }
+.form-privacy a { text-decoration: underline; text-underline-offset: 2px; }
+.form-error { margin-top: 8px; font-size: 12px; line-height: 18px; color: var(--color-text); font-weight: 500; }
+.form-field input[aria-invalid="true"],
+.form-consent input[aria-invalid="true"] { border-color: var(--color-text); box-shadow: 0 0 0 1px var(--color-text); }
+.form-success { text-align: center; }
+.form-success-icon { display: grid; place-items: center; width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; background: var(--color-yellow); }
+.form-success-icon img { width: 32px; height: 32px; }
+.form-success .form-supporting { max-width: 580px; margin: 16px auto 0; }
+.form-return { margin-top: 48px; }
+.form-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .form-option:hover .form-option-card { box-shadow: 0 0 0 1px var(--color-yellow); }
+  .form-back:hover { box-shadow: 0 0 0 2px var(--color-gray); }
+  .form-privacy a:hover { color: var(--color-text); }
+}
+.form-back:active { opacity: .9; }
+@media (max-width: 700px) {
+  .form-header { height: 85px; padding: 0 64px 0 20px; justify-content: flex-start; }
+  .form-header-title { font-size: 14px; line-height: 20px; letter-spacing: .2px; text-align: left; }
+  .form-back { right: 6px; top: 20px; }
+  .form-overlay[data-screen="contact"] .form-header-search { display: inline; }
+  .form-overlay[data-screen="contact"] .form-header-brand { display: none; }
+  .form-overlay[data-screen="contact"] .form-back { display: grid; }
+  .form-overlay[data-screen="success"] .form-header { justify-content: center; padding-inline: 20px; }
+  .form-overlay[data-screen="success"] .form-header-title { text-align: center; }
+  .form-content { margin-top: 24px; }
+  .form-overlay h2 { text-align: left; }
+  .form-step { margin-top: 28px; min-height: 0; }
+  .form-question-intro > p { text-align: left; margin-top: 16px; line-height: 24px; }
+  .form-options { margin-top: 24px; }
+  .form-step[data-step="1"] .form-question-intro,
+  .form-step[data-step="2"] .form-question-intro { min-height: 164px; }
+  .form-step[data-step="1"] .form-options,
+  .form-step[data-step="2"] .form-options { margin-top: 0; }
+  .form-option-card { gap: 16px; }
+  .form-continue { margin-top: 24px; }
+  .form-overlay[data-screen="contact"] .form-content { margin-top: 28px; }
+  .form-supporting { text-align: left; margin-top: 16px; line-height: 24px; }
+  .form-fields { margin-top: 24px; gap: 24px; }
+  .form-field > label { line-height: 16px; margin-bottom: 4px; }
+  .form-submit { margin-top: 32px; }
+  .form-privacy { margin: 32px 0 0; }
+  .form-consent { gap: 10px; margin-top: 12px; }
+  .form-overlay[data-screen="success"] .form-content { margin-top: 72px; }
+  .form-success { text-align: left; }
+  .form-success-icon { width: 48px; height: 48px; margin: 0 0 24px; }
+  .form-success-icon img { width: 24px; height: 24px; }
+  .form-success .form-supporting { margin-top: 16px; }
+  .form-return { display: flex; margin: 72px auto 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form-option-card, .form-back { transition: none; }
+}
+
+/* Keep the question action visible without reducing option sizes. */
+.form-overlay[open][data-screen="questions"] { display: flex; flex-direction: column; overflow: hidden; }
+.form-overlay[data-screen="questions"] .form-header { flex-shrink: 0; }
+.form-overlay[data-screen="questions"] .form-content {
+  height: min(610px, calc(100dvh - 169px)); min-height: 0;
+  margin-bottom: 32px; flex-shrink: 0;
+}
+.form-questions { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.form-progress-row { flex-shrink: 0; }
+.form-step { flex: 1; min-height: 0; }
+.form-step-scroll {
+  width: 100%; flex: 1; min-height: 0; overflow-y: auto;
+  overscroll-behavior: contain; padding: 0 6px 8px;
+  scrollbar-width: thin; scroll-padding-block: 8px;
+}
+.form-step-scroll .form-options { margin-inline: auto; }
+.form-step-scroll .form-error { width: min(520px, 100%); margin-inline: auto; }
+.form-actions { width: 100%; flex-shrink: 0; padding-top: 20px; background: var(--color-white); }
+.form-actions .form-continue { display: flex; margin: 0 auto; }
+/* One thin accent edge replaces the existing border, including on invalid fields. */
+.form-field input:focus-visible {
+  border-color: var(--color-yellow); outline: 1px solid var(--color-yellow);
+  outline-offset: 0; box-shadow: none;
+}
+@media (max-width: 700px) {
+  .form-overlay[data-screen="questions"] .form-content {
+    height: calc(100dvh - 109px); margin-bottom: 0;
+  }
+  .form-step-scroll { padding-inline: 0; }
+  .form-actions { padding: 24px 0 calc(52px + env(safe-area-inset-bottom, 0px)); }
+  .form-option input:focus-visible + .form-option-card { outline-offset: -3px; }
+}
+
+/* A single, short entrance when the success screen becomes visible. */
+@keyframes form-success-circle-enter {
+  from { opacity: 0; transform: scale(.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes form-success-envelope-enter {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes form-success-content-enter {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.form-success:not([hidden]) .form-success-icon { animation: form-success-circle-enter 320ms ease-out backwards; }
+.form-success:not([hidden]) .form-success-icon img { animation: form-success-envelope-enter 280ms 60ms ease-out backwards; }
+.form-success:not([hidden]) h2 { animation: form-success-content-enter 320ms 120ms ease-out backwards; }
+.form-success:not([hidden]) .form-supporting { animation: form-success-content-enter 320ms 200ms ease-out backwards; }
+.form-success:not([hidden]) .form-return { animation: form-success-content-enter 320ms 280ms ease-out backwards; }
+@media (prefers-reduced-motion: reduce) {
+  .form-success:not([hidden]) .form-success-icon,
+  .form-success:not([hidden]) .form-success-icon img,
+  .form-success:not([hidden]) h2,
+  .form-success:not([hidden]) .form-supporting,
+  .form-success:not([hidden]) .form-return { animation: none; }
+}
+
+/* Keep the contact action in normal flow on desktop. */
+.form-contact-actions { display: contents; }
+@media (max-width: 700px) {
+  .form-overlay[data-screen="contact"] {
+    scroll-padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+  }
+  .form-overlay[data-screen="contact"] .form-content { margin-bottom: 0; }
+  .form-contact-actions {
+    display: block; position: sticky; bottom: 0;
+    padding: 24px 0 calc(52px + env(safe-area-inset-bottom, 0px));
+    margin-top: 8px; background: var(--color-white);
+  }
+  .form-contact-actions .form-submit { margin-top: 0; }
 }
