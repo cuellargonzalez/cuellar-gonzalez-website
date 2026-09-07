@@ -181,6 +181,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px s
   .footer-contact { align-items: flex-start; flex-direction: column; gap: 16px; margin-top: 36px; font-size: 14px; }
   .footer-contact .icon { width: 16px; height: 16px; }
   .footer-contact a { gap: 8px; overflow-wrap: anywhere; }
+  .footer-contact a[data-contact-event="whatsapp_click"] { gap: 12px; }
   .footer-bottom { flex-direction: column; gap: 20px; margin-top: 32px; padding-top: 20px; font-size: 14px; }
 }
 

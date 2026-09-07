@@ -1,6 +1,21 @@
 (() => {
   'use strict';
 
+  // Only explicit categorical parameters belong here; never pass contact data/formState.
+  function trackEvent(name, parameters = {}) {
+    try {
+      if (typeof window.gtag === 'function') window.gtag('event', name, parameters);
+    } catch (_) {
+      // Analytics must never interrupt navigation or submission.
+    }
+  }
+
+  document.querySelectorAll('[data-contact-event], a[href^="mailto:"]').forEach(control => {
+    control.addEventListener('click', () => {
+      trackEvent(control.dataset.contactEvent || 'email_click');
+    });
+  });
+
   const formOverlay = document.querySelector('#lead-form');
   if (!formOverlay) return;
 
@@ -21,6 +36,7 @@
   const formSubmitLabel = formSubmit.textContent;
   const formEndpoint = 'https://script.google.com/macros/s/AKfycbzcBj7MJBlP0lDQsMB3EtWItjR8A5W3Dx6SLGpSqtso-KYagzNPwWBZK1mI6omNrG2t/exec';
   let formRequest = null;
+  let formContactTracked = false;
   const formScreens = {
     questions: formOverlay.querySelector('.form-questions'),
     contact: formOverlay.querySelector('.form-contact'),
@@ -82,6 +98,7 @@
   }
 
   function resetForm() {
+    formContactTracked = false;
     // Ignore late responses after Escape/close or a new form session.
     if (formRequest) formRequest.controller.abort();
     formRequest = null;
@@ -165,17 +182,22 @@
     document.documentElement.classList.add('form-is-open');
     formOverlay.showModal(); // Native dialog makes the landing page inert and contains focus.
     formTitle.focus({ preventScroll: true });
+    trackEvent('form_start', { cta_location: opener.dataset.ctaLocation });
   }
 
-  function closeForm(returnToTop = false) {
+  function closeForm(returnToTop = false, exitMethod = null) {
+    const wasOpen = formOverlay.open;
     formReturnToTop = returnToTop;
     formOverlay.close();
+    if (wasOpen && !formOverlay.open && exitMethod) {
+      trackEvent('form_exit', { exit_method: exitMethod });
+    }
   }
 
   formOpeners.forEach(button => button.addEventListener('click', () => openForm(button)));
   formOverlay.addEventListener('cancel', event => {
     event.preventDefault();
-    closeForm();
+    closeForm(false, 'escape');
   });
   formOverlay.addEventListener('close', () => {
     document.documentElement.classList.remove('form-is-open');
@@ -192,7 +214,7 @@
       formStep -= 1;
       renderFormStep();
     } else {
-      closeForm();
+      closeForm(false, 'step_1_back');
     }
   });
 
@@ -211,12 +233,21 @@
       formOptions.querySelector('input').focus();
       return;
     }
+    trackEvent('form_step_complete', {
+      step_number: formStep + 1,
+      step_name: formSteps[formStep].key,
+      answer: formState[formSteps[formStep].key]
+    });
     if (formStep < 3) {
       formStep += 1;
       renderFormStep();
     } else {
       formBack.setAttribute('aria-label', 'Volver al paso anterior');
       showFormScreen('contact', document.querySelector('#form-contact-title'));
+      if (!formContactTracked) {
+        formContactTracked = true;
+        trackEvent('form_contact_view');
+      }
     }
   });
 
@@ -307,6 +338,7 @@
       const result = await response.json();
       if (!result || result.success !== true) throw new Error('Submission was not confirmed');
       if (formRequest !== request || !formOverlay.open) return;
+      trackEvent('generate_lead');
       setFormSubmitting(false);
       showFormScreen('success', document.querySelector('#form-success-title'));
     } catch (error) {

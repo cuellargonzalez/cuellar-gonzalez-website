@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Google tag (gtag.js). Disable automatic Form interactions and Outbound clicks
+       in this GA4 stream: explicit events below avoid duplicates and contact URLs. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1ZBPVG4W3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E1ZBPVG4W3');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cuéllar González · Inmobiliaria</title>
@@ -11,7 +20,7 @@
   <main id="inicio">
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-layout">
-        <div class="hero-copy"><h1 id="hero-title">Encuentra tu Hogar Perfecto</h1><p>Cuéntanos qué necesitas, tu presupuesto y preferencias. Nosotros nos encargamos de encontrar la propiedad perfecta para ti.</p><button class="button" type="button" data-form-open>Empezar mi búsqueda</button></div>
+        <div class="hero-copy"><h1 id="hero-title">Encuentra tu Hogar Perfecto</h1><p>Cuéntanos qué necesitas, tu presupuesto y preferencias. Nosotros nos encargamos de encontrar la propiedad perfecta para ti.</p><button class="button" type="button" data-form-open data-cta-location="hero">Empezar mi búsqueda</button></div>
         <div class="hero-image"><img src="Assets/Images/Hero image.png" alt="Edificio de apartamentos con balcones y terrazas" width="819" height="854" fetchpriority="high"></div>
       </div>
     </section>
@@ -21,7 +30,7 @@
         <article class="card service-card"><h3><span class="icon-circle"><img class="icon " src="Assets/Icons/Search.svg" alt="" width="24" height="24"></span>ENCUENTRA</h3><p>Propiedades cuidadosamente seleccionadas que se ajustan a tus criterios y estilo de vida.</p></article>
         <article class="card service-card"><h3><span class="icon-circle"><img class="icon " src="Assets/Icons/Finance.svg" alt="" width="24" height="24"></span>FINANCIA</h3><p>Aceptamos pagos con el FNA y ofrecemos asesoría experta en crédito hipotecario y leasing habitacional.</p></article>
         <article class="card service-card"><h3><span class="icon-circle"><img class="icon " src="Assets/Icons/Support.svg" alt="" width="24" height="24"></span>ACOMPAÑA</h3><p>Atención personalizada desde la búsqueda inicial hasta la entrega de llaves.</p></article>
-      </div><div class="section-action"><button class="button" type="button" data-form-open>Empezar mi búsqueda</button></div>
+      </div><div class="section-action"><button class="button" type="button" data-form-open data-cta-location="services">Empezar mi búsqueda</button></div>
     </div></section>
     <section class="section properties" aria-labelledby="properties-title">
       <div class="container"><h2 id="properties-title">Algunas propiedades que podrías encontrar</h2></div>
@@ -41,12 +50,12 @@
         <li><span class="step-number" aria-hidden="true">03</span><div class="step-copy"><h3>Visitas guiadas</h3><p>Te acompañamos a conocer los inmuebles seleccionados.</p></div></li>
         <li><span class="step-number" aria-hidden="true">04</span><div class="step-copy"><h3>Negociación y cierre</h3><p>Acompañamiento legal y financiero para cerrar con el mejor trato.</p></div></li>
         <li><span class="step-number" aria-hidden="true">05</span><div class="step-copy"><h3>Entrega de llaves</h3><p>Celebramos contigo el inicio de esta nueva etapa.</p></div></li>
-      </ol><div class="section-action"><button class="button" type="button" data-form-open>Empezar mi búsqueda</button></div>
+      </ol><div class="section-action"><button class="button" type="button" data-form-open data-cta-location="journey">Empezar mi búsqueda</button></div>
     </div></section>
     <section class="section profile" aria-labelledby="profile-title"><div class="container profile-layout">
       <img class="portrait" src="Assets/Team/Foto_Pablo.jpeg" alt="Pablo Cuéllar con una vista de Bogotá al fondo" width="1600" height="1200">
       <div class="profile-copy"><span class="badge">ASESORÍA EXPERTA</span><h2 id="profile-title">Hola, soy Pablo Cuéllar</h2><p>Mi objetivo no es solo mostrarte propiedades, sino entender profundamente cómo quieres vivir y asegurar que tu inversión sea la correcta.</p><p>Con años de experiencia en el mercado inmobiliario de Bogotá y una red de aliados estratégicos como HABI, combino herramientas tecnológicas con un servicio altamente personalizado para que tu transición a un nuevo hogar sea impecable.</p>
-        <div class="contact-actions"><a class="icon-circle" href="mailto:Pablo.CuellarGonzalez@gmail.com" aria-label="Enviar correo a Pablo"><img class="icon " src="Assets/Icons/Email.svg" alt="" width="24" height="24"></a><button class="icon-circle" type="button" aria-label="Contacto Whatsapp"><img class="icon " src="Assets/Icons/Whatsapp.svg" alt="" width="24" height="24"></button></div>
+        <div class="contact-actions"><a class="icon-circle" href="mailto:cuellargonzalezcg@gmail.com" aria-label="Enviar correo a Pablo"><img class="icon " src="Assets/Icons/Email.svg" alt="" width="24" height="24"></a><a class="icon-circle" data-contact-event="whatsapp_click" aria-label="Contacto Whatsapp" href="https://wa.me/573503374712?text=Hola%20Pablo%2C%20vi%20la%20p%C3%A1gina%20de%20Cu%C3%A9llar%20Gonz%C3%A1lez%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20apartamentos%20disponibles." target="_blank" rel="noopener"><img class="icon " src="Assets/Icons/Whatsapp.svg" alt="" width="24" height="24"></a></div>
       </div>
     </div></section>
     <section class="section alliance" aria-labelledby="alliance-title"><div class="container">
@@ -56,13 +65,13 @@
       </ul><div class="financing"><p><img class="icon " src="Assets/Icons/savings.svg" alt="" width="24" height="24">Financiación Habicredit:</p><p class="financing-detail">Puedes hacer un solo estudio y recibir propuestas de financiación de hasta 7 bancos para la vivienda que quieras comprar.</p></div></div>
     </div></section>
     <section class="final-cta" aria-labelledby="cta-title">
-      <div class="container"><h2 id="cta-title">¿Buscamos tu futuro hogar?</h2><button class="button" type="button" data-form-open>Empezar mi búsqueda</button></div>
+      <div class="container"><h2 id="cta-title">¿Buscamos tu futuro hogar?</h2><button class="button" type="button" data-form-open data-cta-location="final_cta">Empezar mi búsqueda</button></div>
     </section>
   </main>
   <footer class="site-footer"><div class="container">
     <p class="footer-brand">CUÉLLAR GONZÁLEZ<span class="desktop-brand"> INMOBILIARIA</span></p><p class="mobile-brand">Inmobiliaria &amp; Aliado HABI</p>
-    <div class="footer-contact"><button type="button"><img class="icon " src="Assets/Icons/Whatsapp.svg" alt="" width="24" height="24">Contacto Whatsapp</button><a href="mailto:Pablo.CuellarGonzalez@gmail.com"><img class="icon " src="Assets/Icons/Email.svg" alt="" width="24" height="24">Pablo.CuellarGonzalez@gmail.com</a></div>
-    <div class="footer-bottom"><p>© 2026 Cuéllar González Inmobiliaria. Todos los derechos reservados.</p><a href="Assets/Documents/Politica_Tratamiento_Datos_Persona_Natural_Agente_Inmobiliario.docx">Política de Tratamiento de Datos Personales</a></div>
+    <div class="footer-contact"><a data-contact-event="whatsapp_click" href="https://wa.me/573503374712?text=Hola%20Pablo%2C%20vi%20la%20p%C3%A1gina%20de%20Cu%C3%A9llar%20Gonz%C3%A1lez%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20apartamentos%20disponibles." target="_blank" rel="noopener"><img class="icon " src="Assets/Icons/Whatsapp.svg" alt="" width="24" height="24">Contacto Whatsapp</a><a href="mailto:cuellargonzalezcg@gmail.com"><img class="icon " src="Assets/Icons/Email.svg" alt="" width="24" height="24">cuellargonzalezcg@gmail.com</a></div>
+    <div class="footer-bottom"><p>© 2026 Cuéllar González Inmobiliaria. Todos los derechos reservados.</p><a href="Assets/Documents/Politica_Tratamiento_Datos_Persona_Natural_Agente_Inmobiliario.pdf">Política de Tratamiento de Datos Personales</a></div>
   </div></footer>
   <dialog class="form-overlay" id="lead-form" aria-label="Encuentra tu casa perfecta">
     <header class="form-header">
@@ -95,7 +104,7 @@
             <div class="form-field"><label for="form-email">EMAIL</label><div class="form-input-wrap form-input-icon"><img src="Assets/Icons/Email.svg" alt="" width="16" height="16"><input id="form-email" name="email" type="email" placeholder="tu@email.com" autocomplete="email" required aria-describedby="form-email-error"></div><p class="form-error" id="form-email-error" hidden></p></div>
           </div>
           <div class="form-privacy"><p>Usaremos tus datos únicamente para contactarte sobre las opciones de vivienda que puedan interesarte.</p>
-            <div class="form-consent"><input id="form-consent" name="consent" type="checkbox" required aria-describedby="form-consent-error"><label for="form-consent">Autorizo de manera previa, expresa e informada el tratamiento de mis datos personales, de conformidad con la <a href="Assets/Documents/Politica_Tratamiento_Datos_Persona_Natural_Agente_Inmobiliario.docx" target="_blank" rel="noopener">Política de Tratamiento de Datos Personales</a>, para recibir asesoría comercial sobre propiedades inmobiliarias, programar visitas y recibir ofertas.</label></div>
+            <div class="form-consent"><input id="form-consent" name="consent" type="checkbox" required aria-describedby="form-consent-error"><label for="form-consent">Autorizo de manera previa, expresa e informada el tratamiento de mis datos personales, de conformidad con la <a href="Assets/Documents/Politica_Tratamiento_Datos_Persona_Natural_Agente_Inmobiliario.pdf" target="_blank" rel="noopener">Política de Tratamiento de Datos Personales</a>, para recibir asesoría comercial sobre propiedades inmobiliarias, programar visitas y recibir ofertas.</label></div>
             <p class="form-error" id="form-consent-error" hidden></p>
           </div>
           <p class="form-sr-only" id="form-validation-status" role="alert"></p>
