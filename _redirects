@@ -1,0 +1,7 @@
+# Temporary entry redirect; query parameters are preserved.
+/ /vivienda 302
+/vivienda/ /vivienda 302
+
+# Serve the existing root index.html without changing the browser URL.
+# Proxy rules do not reapply the redirect for their destination.
+/vivienda / 200
