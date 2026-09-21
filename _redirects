@@ -5,3 +5,7 @@
 # Serve the existing root index.html without changing the browser URL.
 # Proxy rules do not reapply the redirect for their destination.
 /vivienda / 200
+
+# Canonical FNA URL and static landing, using the same proxy convention.
+/fna/ /fna 302
+/fna /fna.html 200

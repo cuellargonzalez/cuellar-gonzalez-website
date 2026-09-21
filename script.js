@@ -317,6 +317,8 @@
     const submission = {
       nombre, whatsapp, email, dondeVivir, presupuesto, financiacion, cuandoComprar,
       consentimiento: formConsent.checked,
+      // Optional metadata; the existing endpoint and success contract stay unchanged.
+      landing_source: /^\/fna(?:\/|\.html)?$/.test(window.location.pathname) ? 'fna' : 'vivienda',
       utm_source, utm_campaign, utm_content
     };
     const request = { controller: new AbortController() };

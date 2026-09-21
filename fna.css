@@ -1,0 +1,74 @@
+/* FNA-only composition. Shared brand, contact and form styles live in style.css. */
+.fna-page .hero-copy { transform: translateY(32px); }
+.fna-eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 32px; color: var(--color-text); font-size: 12px; font-weight: 650; }
+.fna-eyebrow .icon { width: 16px; height: 16px; }
+.fna-mobile-label { display: none; }
+.fna-proposition { width: min(var(--container-width), calc(100% - 2 * var(--gutter))); margin-inline: auto; display: grid; grid-template-columns: 486px minmax(0, 1fr); grid-template-areas: "photo intro" "services services"; gap: 0 48px; padding-top: 88px; }
+.fna-intro { grid-area: intro; align-self: center; }
+.fna-intro p { margin-top: 48px; }
+.fna-advice-image { grid-area: photo; }
+.fna-advice-image img { width: 100%; height: 340px; object-fit: cover; border-radius: var(--radius-portrait); }
+.fna-services { grid-area: services; padding-block: 176px 88px; }
+.fna-services > h2, .fna-subtitle { text-align: center; }
+.fna-subtitle { margin-top: 16px; }
+.fna-page .service-card h3 { gap: 16px; }
+.fna-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 80px; margin: 80px 40px 0; padding: 0; list-style: none; text-align: center; }
+.fna-step-icon { display: grid; place-items: center; width: 58px; height: 58px; margin: 0 auto 16px; border: 1px solid var(--color-yellow); border-radius: 50%; }
+.fna-steps .badge { padding: 3px 8px; font-size: 12px; }
+.fna-steps h3 { margin-top: 12px; }
+.fna-steps p { margin-top: 16px; font-size: 16px; line-height: 1.4; color: var(--color-muted); }
+.fna-journey .section-action { margin-top: 64px; }
+@media (min-width: 701px) and (max-width: 1100px) {
+  .fna-proposition { grid-template-columns: 2fr 3fr; gap: 0 32px; }
+  .fna-intro p { margin-top: 24px; }
+  .fna-page .service-grid { gap: 16px; }
+  .fna-page .service-card { padding: 20px; }
+  .fna-page .service-card h3 { align-items: flex-start; gap: 8px; }
+  .fna-steps { gap: 32px; margin-inline: 0; }
+}
+@media (max-width: 700px) {
+  .fna-page .site-header a { width: min(282px, calc(100% - 40px)); }
+  .fna-page .hero-copy { transform: none; padding-top: 64px; }
+  .fna-eyebrow { justify-content: center; font-size: 12px; margin-bottom: 32px; }
+  .fna-page .hero-copy h1 { font-size: 40px; max-width: 350px; }
+  .fna-page .hero-copy p { margin-block: 32px; font-size: 18px; font-weight: 600; }
+  .fna-desktop-label { display: none; }
+  .fna-mobile-label { display: inline; }
+  .fna-page .hero-layout { gap: 24px; }
+  .fna-page .hero-image { width: 100%; margin-left: 0; aspect-ratio: 350 / 352; }
+  .fna-page .hero-image img { width: 100%; left: 0; }
+  .fna-proposition { width: 100%; display: flex; flex-direction: column; padding-top: 0; }
+  .fna-intro { padding: 64px 24px; }
+  .fna-intro p { margin-top: 32px; font-size: 16px; }
+  .fna-advice-image { padding: 64px 24px 0; background: #fafafa; }
+  .fna-advice-image img { height: auto; aspect-ratio: 350 / 288; border-radius: 24px; }
+  .fna-services { padding: 32px 24px 64px; background: #fafafa; }
+  .fna-services > h2, .fna-services .fna-subtitle { text-align: left; }
+  .fna-services .fna-subtitle { font-size: 16px; }
+  .fna-page .service-grid { margin-top: 48px; }
+  .fna-page .service-card { background: transparent; }
+  .fna-page .service-card h3 { font-size: 18px; }
+  .fna-page .service-card p { font-size: 16px; font-weight: 550; }
+  .fna-services .section-action { margin-top: 32px; }
+  .fna-page .profile-copy h2 { max-width: 300px; }
+  .fna-page .contact-actions .icon-circle { width: 48px; height: 48px; }
+  .fna-journey { border-top: 1px solid var(--color-blue-line); }
+  .fna-journey h2 { text-align: center; }
+  .fna-journey .fna-subtitle { display: none; }
+  .fna-steps { display: flex; flex-direction: column; gap: 32px; margin: 32px 12px 0; }
+  .fna-steps h3 { font-size: 18px; }
+  .fna-steps p { font-size: 16px; }
+}
+@media (min-width: 701px) {
+  .fna-page .hero-copy h1 { max-width: 550px; }
+  .fna-page .hero-layout, .fna-page .alliance-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fna-page .footer-contact { flex-wrap: wrap; }
+}
+@media (max-width: 700px) {
+  .fna-page .hero-image img { width: 110%; left: -5%; }
+  .fna-page .profile-copy h2 { max-width: 260px; }
+}
+.fna-page .hero-layout > * { min-width: 0; }
+@media (min-width: 701px) and (max-width: 1100px) {
+  .fna-page .hero-image { width: 100%; }
+}
