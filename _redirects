@@ -6,6 +6,6 @@
 # Proxy rules do not reapply the redirect for their destination.
 /vivienda / 200
 
-# Canonical FNA URL and static landing, using the same proxy convention.
+# Cloudflare's built-in HTML handling serves fna.html at /fna and redirects
+# /fna.html to /fna. Do not proxy /fna to /fna.html: that creates a 307 loop.
 /fna/ /fna 302
-/fna /fna.html 200
